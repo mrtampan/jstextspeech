@@ -1,0 +1,74 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous"/>
+</head>
+<body>
+    
+<div class="container">
+    <h1 class="text-center mb-3">Text to Speech</h1>
+
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Text</label>
+        <textarea vy-input="teks" class="form-control" ></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Pilih Bahasa <a style="font-size:10px;font-style: italic;" target="_blank" href="http://www.lingoes.net/en/translator/langcode.htm" > cari bahasa andalan mu</a></label>
+        <input type="text" class="form-control" vy-input="bahasa" list="datalists" />
+        <datalist id="datalists">
+            <option  value="en-US">English</option>
+            <option  value="id-ID">Bahasa Indonesia</option>
+            <option  value="ar">Arabic</option>
+            <option  value="ar-AE">Arabic UAE</option>
+            <option  value="ar-IQ">Arabic Iraq</option>
+            <option  value="ko-KR">Korea</option>
+            <option  value="nl">Dutch</option>
+          </datalist>
+    </div>
+    <div class="text-center"><button onClick="submitFunc()" class="btn btn-primary btn-lg"  >Submit</button></div>
+</div>
+</body>
+</html>
+
+<script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mrtampan/vyvy/vyvy.js"></script>
+<link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css'/>
+<script>
+
+
+function submitFunc(){
+    
+    if(vyData.teks == '' || vyData.teks == null || vyData.teks == undefined){
+        alert("isi text woy");
+        return '';
+    }
+
+    if(vyData.bahasa == null || vyData.bahasa == ''){
+        alert("Pilih bahasa pak");
+        return '';         
+    }
+
+    // new SpeechSynthesisUtterance object
+    let utter = new SpeechSynthesisUtterance();
+    utter.lang = vyData.bahasa;
+    utter.text = vyData.teks;
+    utter.volume = 5;
+
+    // event after text has been spoken
+    // utter.onend = function() {
+    //     alert('Selesai');
+    // }
+
+    // speak
+    window.speechSynthesis.speak(utter);
+    
+
+}
+
+vyInit();
+
+
+// thank to https://usefulangle.com/post/98/javascript-text-to-speech
+
+</script>
